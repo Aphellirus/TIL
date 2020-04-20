@@ -1,0 +1,6 @@
+Just a command to list all the listening ports on linux
+
+
+
+
+netstat -tpln
