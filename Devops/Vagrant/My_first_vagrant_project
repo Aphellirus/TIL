@@ -1,3 +1,10 @@
+## This is my first experience with vagrant.
+Took me a few days to get this done, but after some searches, it works. Still learning on how to improve it. ##
+
+
+
+
+
 I used ubuntu/trusty64 machine, created a folder named “first infrastructure” and then added the box i'm going to use:
 
 vagrant box add ubuntu/trusty64
