@@ -1,0 +1,152 @@
+I used ubuntu/trusty64 machine, created a folder named “first infrastructure” and then added the box i'm going to use:
+
+vagrant box add ubuntu/trusty64
+
+
+
+
+Then create a file named “Vagrantfile” (with no extension):
+
+Vagrant.configure("2") do |config|
+
+  # Always use Vagrant's default insecure key
+    config.ssh.insert_key = false
+  # To avoid/allow install and uninstall of VBoxGuessAdditions.
+    config.vbguest.auto_update = false
+ end
+
+
+
+
+Defined a client machine:
+
+config.vm.define "client" do |client_config|
+
+      #I am attributing an "OS" to my machine
+      client_config.vm.box = "ubuntu/trusty64"
+      
+      #The hostname will be client 
+      client_config.vm.hostname = "client"
+      
+      #Attributing an IP to my machine    
+      client_config.vm.network "private_network", ip: "192.168.46.72"
+
+
+#Using VirtualBox to launch the machines
+      client_config.vm.provider "virtualbox" do |vb|
+        vb.name = "client"
+        #About opts: https://www.virtualbox.org/manual/ch08.html       
+        opts = ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vb.customize opts
+        vb.memory = 256
+      
+       # can also define the number of cpus: vb.cpus = x
+       end # of vb
+    end # of client_config
+
+
+
+Now to add the webserver:
+
+config.vm.define "web-server-1" do |web_config|
+      #Operating System
+      web_config.vm.box = "ubuntu/trusty64"
+      web_config.vm.hostname = "web-server-1"
+      #How the Host sees the Box
+      web_config.vm.network "private_network", ip: "192.168.46.72"
+      #Port 80 is the default port for Apache, port that listens to clients
+      #Port 8080 is typically used for a personally hosted web server
+      web_config.vm.network "forwarded_port", guest: 80, host: "8081" 
+   
+       #Synchronizing the html folder with apache's www/html folder
+
+
+web_config.vm.synced_folder ".", "/var/www/html", :nfs      => {:mount_options => ["dmode=777","fmode=666"]}
+      web_config.vm.provider "virtualbox" do |vb|
+        vb.name = "web-server-1"
+        opts = ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vb.customize opts
+        vb.memory = 256
+        #vb.cpus = 4
+      end # of vb
+      web_config.vm.provision "shell", path: "bootstrap_web.sh"
+    end # of web_config
+
+
+
+
+
+
+If i want to launch 2 Webservers, there's no need to repeat code, instead i can follow good practices recommended by vagrant and use a loop to define similar machines:
+
+
+(1..2).each do |i|
+    config.vm.define "web-server-#{i}" do |web_config|
+      #Operating System
+      web_config.vm.box = "ubuntu/trusty64"
+      web_config.vm.hostname = "web-server-#{i}"
+      #How the Host sees the Box
+      web_config.vm.network "private_network", ip: "192.168.46.7#{i}"
+      #Port 80 is the default port for Apache, port that listens to clients
+      #Port 8080 is typically used for a personally hosted web server
+      web_config.vm.network "forwarded_port", guest: 80, host: "808#{i}"
+
+   web_config.vm.synced_folder ".", "/var/www/html", :nfs      => {:mount_options => ["dmode=777","fmode=666"]}
+
+web_config.vm.provider "virtualbox" do |vb|
+        vb.name = "web-server-#{i}"
+        opts = ["modifyvm", :id, "--natdnshostresolver1", "on"]
+        vb.customize opts
+        vb.memory = 256
+        #vb.cpus = 4
+      end # of vb
+      web_config.vm.provision "shell", path: "bootstrap_web.sh"
+    end # of web_config
+  end # of loop
+
+
+
+
+
+Now just need to install all the dependencies needed for my LAMP machine. I told Vagrant to sync /var/www with the folder that contains the Vagrantfile, and vreated an empty html file called index.
+
+
+
+
+
+
+To see the servers being launched and the output of the process:
+
+    $ vagrant up --provision
+
+
+
+
+Now i can login into any machine via “vagrant ssh NAME”.
+
+
+
+
+
+To check if the machines are running, just ping the host
+
+ vagrant@web-server-1:$ ping 192.168.46.72
+
+
+
+
+To get more information about the network:
+
+ vagrant@web-server-1:$ ip addr show
+
+
+
+
+And to finish this experiment run:
+
+$ vagrant halt
+
+
+
+
+
