@@ -16,11 +16,10 @@ var degree = function(celcius){
 rl.question("Input your degree in Celcius here = ", function(celc) {
   console.log(`Celcius = ${celc}`);
   console.log("Fahrenheit = " + degree(celc));
-  //degree.emit("degreenih", celc);
   rl.close();
 });
 
 rl.on("close", function() {
-    console.log("\nBYE BYE !!!");
+    console.log("\nGoodbye! ");
     process.exit(0);
 });
