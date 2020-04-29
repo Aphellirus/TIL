@@ -1,0 +1,19 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Text.RegularExpressions;
+
+namespace NoSpace
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            string x = Console.ReadLine();
+            x = x.Replace(" ", "");
+            Console.Write(x);
+        }
+    }
+}
