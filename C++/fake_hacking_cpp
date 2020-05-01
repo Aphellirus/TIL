@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+int main()
+{
+  back:
+  char name_site_app[100];
+  int choice , a ,  b , i;
+    printf("\n\n\n...........HACKING............");
+    printf("\n\nSTART HACKING ?");
+    printf("\n1 YES\n2 NO \n");
+    cin>>choice;
+    if(choice==1)
+    {
+      printf("WRITE YOUR WEBSITE ADDRESS :");
+      cin>>name_site_app;
+      cout<<name_site_app<<".com "<<"IS HACKING\n\n\n";
+      for(i=1;i<=10000;i++) 
+    cout<<"\n"<<i<<i<<i<<i<<i<<i<<i<<i;
+          cout<<"\n\n\n"<<name_site_app<<".com "<<"HACKED\n\n";
+    }
+  else if(choice>2)
+    {
+      printf("WRONG NUMBER !");
+      cout<<"\n\n\n.........END OF HACKING........";
+    }
+    else 
+    {
+      printf("\n\n\n........END OF HACKING........");
+      return 0;
+    }
+    int ex_in;
+    cout<<"\n\nIF YOU WANT TO EXIT ENTER 0 OR DO YOU WANT TO CONTINUE ENTER 1 : ";
+    cin>>ex_in;
+    if(ex_in==0)
+    {
+      printf("\n\nTHANKS FOR USING THIS\n\n");
+      exit;
+    }
+    else if(ex_in==1)
+    {
+      goto back;
+    }
+    else
+    {
+      cout<<"\n\nWRONG NUMBER\n\n";
+      exit;
+    }
+    
+    return 0;
+    }
