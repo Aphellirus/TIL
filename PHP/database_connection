@@ -1,0 +1,17 @@
+<?php
+// parameters for DB connection
+$host = "localhost";
+$bd="database_name";
+$user="user_name";
+$pass="";
+
+//Connect to server with selected DB
+$con= mysqli_connect($host, $user, $pass, $bd);
+if(mysqli_connect_errno()){
+    echo "ooh...connection failed". $con->connect_errno."---". $con->connect_error;
+    exit();
+}
+//State language for the connection
+mysqli_set_charset($con, "UTF8");
+return $con;
+?>
