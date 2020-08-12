@@ -4,7 +4,6 @@
 
     /*
     *This function can be modified depending on the amount of fields in your form
-    *Pass in the first argument the object used to make the connection
     */
 
     //increase the number of arguments if you have more fields
