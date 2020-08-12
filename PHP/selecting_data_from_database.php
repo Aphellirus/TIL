@@ -1,7 +1,7 @@
 <?php
-    $db = mysqli_connect("localhost","root","","ogloszenia") or die("Connection with database couldn't be done!"); //connection with database
+    $db = mysqli_connect("localhost","root","","Phantochi") or die("Connection with database couldn't be done!"); //connection with database
     mysqli_set_charset($db,"utf-8"); //setting charset to data in database
-    $query=mysqli_query($db,"SELECT * FROM `ogloszenie`") or die("Query trouble!"); //query to database
+    $query=mysqli_query($db,"SELECT * FROM `PhantochiDB`") or die("Query trouble!"); //query to database
     echo '<table border="1">'; //beginning table
     while($result=mysqli_fetch_row($query)){ //getting results from database and setting them into loop
         echo "<tr>"; //beginning of row
