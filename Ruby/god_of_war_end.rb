@@ -109,5 +109,5 @@ Kratos. For once in your pathetic life, don't fail. Don't fail her like you fail
 NOW FIGHT!!
 
 "
-#made by Phantochi
+#made by Neptuos
 fight(p1, p2)
