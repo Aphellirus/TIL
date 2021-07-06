@@ -1,0 +1,12 @@
+const toBin = num => {
+    let res = "";
+    
+    while (num > 0) {
+        res = (num % 2) + res;
+        num = Math.floor(num / 2);
+    }
+    
+    return res;
+}
+
+console.log(toBin(10))
