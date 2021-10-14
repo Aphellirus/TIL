@@ -1,0 +1,2 @@
+var stringg = "ab c  d e fgh i  j kl mn  opqr  stuvwxyz"
+console.log (stringg.replace(/ /g, "")); // / /g means replace spaces globally in given string
