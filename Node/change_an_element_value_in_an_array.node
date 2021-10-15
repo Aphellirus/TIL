@@ -1,0 +1,7 @@
+const items = ['a', 'b', 'c', 'd', 'e', 'f']
+
+const i = 2 
+
+items[i] = 'm' 
+
+console.log(items)
